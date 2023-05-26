@@ -1,3 +1,3 @@
 # Rubiks-Cube
 ## About
-this project is a 3D, interactive, and solvable Rubik's cube made using in Java AWT/Swing. Made in my junior year of high school.
+This project is a work in progress 3D, interactive, and solvable Rubik's cube made using in Java AWT/Swing. Made in my junior year of high school.
