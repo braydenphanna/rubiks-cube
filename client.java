@@ -1,17 +1,15 @@
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 public class client{
     public static vector3[] points;
+    public static vector3[] pointsRotated;
     public static void main(String[] args)
     {
         Frame f = new Frame();
         f.setSize(800,800);
 
-        viewport v = new viewport();
-        f.add(v);
         points = new vector3[]
         { 
             new vector3(-0.5, -0.5, 0.5),
@@ -23,15 +21,15 @@ public class client{
             new vector3(0.5, 0.5, -0.5),
             new vector3(-0.5, 0.5, -0.5)
         };
-        int [][] point2FaceAllocation = 
+        
+        pointsRotated = new vector3[points.length];
+        for(int i = 0; i<points.length; i++)
         {
-            {4,5,6,7},
-            {0,4,7,3},
-            {2,3,7,6},
-            {0,4,5,1},
-            {0,1,2,3},
-            {1,2,6,5}
-        };
+            pointsRotated[i] = points[i];
+        }
+        
+        viewport v = new viewport();
+        f.add(v);
 
         int[][][] rubiks = {{{0,0,0}, 
                              {0,0,0}, 
@@ -51,12 +49,11 @@ public class client{
                             {{5,5,5}, 
                              {5,5,5}, 
                              {5,5,5}}};
-
+        
         f.setVisible(true);
 
         ActionListener taskPerformer = new ActionListener() {
                 public void actionPerformed(ActionEvent evt) {
-                    v.repaint();
                 }
             };
         Timer t = new Timer(25, taskPerformer);
@@ -64,9 +61,9 @@ public class client{
 
     }
 
-    public static float[][] matrixMultiply(float[][] a, float[][] b)
+    public static double[][] matrixMultiply(double[][] a, double[][] b)
     {
-        float[][] result = new float[a.length][b[0].length];
+        double[][] result = new double[a.length][b[0].length];
         for(int i = 0; i<a.length; i++)
         {
             for(int j = 0; j<b[0].length; j++)
