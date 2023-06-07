@@ -3,23 +3,56 @@ import javax.swing.*;
 import java.util.*;
 
 public class face extends Polygon{
-    private ArrayList<Double> pts = new ArrayList<Double>();
-
-    public void addPoint(int x, int y, int j)
+    private ArrayList<Integer> ptKeys = new ArrayList<Integer>();
+    private Color color;
+    private String cstring;
+    public face(Color c, String cstring)
     {
-        super.addPoint(x,y);
-        pts.add(client.pointsRotated[j].getZ());
+        color = c;
+        this.cstring = cstring;
+    }
+    public void addPointKey(int j)
+    {
+        ptKeys.add(j);
+    }
+    public Color getColor()
+    {
+        return color;
+    }
+    public String getColorString()
+    {
+        return cstring;
+    }
+    public void setIndex(Color c)
+    {
+        color = c;
+    }
+    public void update()
+    {
+        for(int i = 0; i<ptKeys.size(); i++)
+        {
+            addPoint((int)viewport.pointPositions[ptKeys.get(i)][0], (int)viewport.pointPositions[ptKeys.get(i)][1]);
+        }
+    }
+    public String getKeys()
+    {
+        String keystring = "";
+        for(int i = 0; i<ptKeys.size(); i++)
+        {
+            keystring += ""+ptKeys.get(i);
+        }
+        return keystring;
     }
     public double getAvgPointPos()
     {
-        if(pts.size()==0) return 0;
+        if(ptKeys.size()==0) return 0;
         else {
         double total = 0;
-        for(int i = 0; i<pts.size(); i++)
+        for(int i = 0; i<ptKeys.size(); i++)
         {
-            total += pts.get(i);
+            total += client.pointsRotated[ptKeys.get(i)].getZ();
         }
-        total/=(double)pts.size();
+        total/=(double)ptKeys.size();
         return total;
         }
     }
@@ -27,6 +60,5 @@ public class face extends Polygon{
     public void reset()
     {
         super.reset();
-        pts.clear();
     }
 }
