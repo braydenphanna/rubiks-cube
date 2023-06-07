@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.*;
 
 public class viewport extends JPanel{
     int faceIndex =0;
@@ -9,7 +10,7 @@ public class viewport extends JPanel{
     public static double[][] pointPositions = new double[client.points.length][2];
     int farthestZIndex = 6 ;
     int closestZIndex = 0 ;
-    face[] faces = {new face(Color.RED, "red"),new face(Color.BLUE, "blue"),new face(Color.YELLOW, "yellow"),new face(Color.ORANGE, "orange"),new face(Color.WHITE, "white"),new face(Color.GREEN, "green")};
+    face[] faces = {new face(Color.RED),new face(Color.BLUE),new face(Color.WHITE),new face(Color.YELLOW),new face(Color.GREEN),new face(Color.ORANGE)};
 
     public viewport(){
         setBackground(Color.black);
@@ -81,7 +82,7 @@ public class viewport extends JPanel{
                     double deltaX = -(evt.getY()-startPoint.getY());
                     double deltaY = evt.getX()-startPoint.getX();
                     
-                    double rotSpeed = 0.01;
+                     double rotSpeed = 0.01;
 
                     // Rotate around x-axis
                     double[][] xRotationMatrix = {
@@ -149,7 +150,6 @@ public class viewport extends JPanel{
                 }        
             }  
         }  
-        System.out.println("________________");
         for(int j =0; j<faces.length; j++)
         {
             faces[j].update();
@@ -160,6 +160,33 @@ public class viewport extends JPanel{
             g2.setStroke(new BasicStroke(4));
             g2.setColor(Color.black);
             g2.drawPolygon(faces[j]);
+            ArrayList<Integer> keys = faces[j].getKeys();
+            g2.setStroke(new BasicStroke(6));
+            int i = 0;
+            //make this a loop
+            Point ptOne = new Point((int)(pointPositions[keys.get(i)][0]*(2.0/3.0)) + (int)(pointPositions[keys.get(i+1)][0]*(1.0/3.0)), 
+                                    (int)(pointPositions[keys.get(i)][1]*(2.0/3.0)) + (int)(pointPositions[keys.get(i+1)][1]*(1.0/3.0)));
+            Point ptTwo = new Point((int)(pointPositions[keys.get(i+2)][0]*(1.0/3.0)) + (int)(pointPositions[keys.get(i+3)][0]*(2.0/3.0)), 
+                                    (int)(pointPositions[keys.get(i+2)][1]*(1.0/3.0)) + (int)(pointPositions[keys.get(i+3)][1]*(2.0/3.0)));
+            Point ptThree = new Point((int)(pointPositions[keys.get(i)][0]*(1.0/3.0)) + (int)(pointPositions[keys.get(i+1)][0]*(2.0/3.0)), 
+                                    (int)(pointPositions[keys.get(i)][1]*(1.0/3.0)) + (int)(pointPositions[keys.get(i+1)][1]*(2.0/3.0)));
+            Point ptFour = new Point((int)(pointPositions[keys.get(i+2)][0]*(2.0/3.0)) + (int)(pointPositions[keys.get(i+3)][0]*(1.0/3.0)), 
+                                    (int)(pointPositions[keys.get(i+2)][1]*(2.0/3.0)) + (int)(pointPositions[keys.get(i+3)][1]*(1.0/3.0)));
+                                    
+            Point ptFive = new Point((int)(pointPositions[keys.get(i)][0]*(2.0/3.0)) + (int)(pointPositions[keys.get(i+3)][0]*(1.0/3.0)), 
+                                    (int)(pointPositions[keys.get(i)][1]*(2.0/3.0)) + (int)(pointPositions[keys.get(i+3)][1]*(1.0/3.0)));
+            Point ptSix = new Point((int)(pointPositions[keys.get(i+1)][0]*(2.0/3.0)) + (int)(pointPositions[keys.get(i+2)][0]*(1.0/3.0)), 
+                                    (int)(pointPositions[keys.get(i+1)][1]*(2.0/3.0)) + (int)(pointPositions[keys.get(i+2)][1]*(1.0/3.0)));
+            Point ptSeven = new Point((int)(pointPositions[keys.get(i)][0]*(1.0/3.0)) + (int)(pointPositions[keys.get(i+3)][0]*(2.0/3.0)), 
+                                    (int)(pointPositions[keys.get(i)][1]*(1.0/3.0)) + (int)(pointPositions[keys.get(i+3)][1]*(2.0/3.0)));
+            Point ptEight = new Point((int)(pointPositions[keys.get(i+1)][0]*(1.0/3.0)) + (int)(pointPositions[keys.get(i+2)][0]*(2.0/3.0)), 
+                                    (int)(pointPositions[keys.get(i+1)][1]*(1.0/3.0)) + (int)(pointPositions[keys.get(i+2)][1]*(2.0/3.0)));
+            g2.drawLine(ptOne.x, ptOne.y, ptTwo.x, ptTwo.y);
+            g2.drawLine(ptThree.x, ptThree.y, ptFour.x, ptFour.y);
+            
+            g2.drawLine(ptFive.x, ptFive.y, ptSix.x, ptSix.y);
+            
+            g2.drawLine(ptSeven.x, ptSeven.y, ptEight.x, ptEight.y);
             faces[j].reset();
         }
     }

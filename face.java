@@ -1,15 +1,12 @@
 import java.awt.*;
-import javax.swing.*;
 import java.util.*;
 
 public class face extends Polygon{
     private ArrayList<Integer> ptKeys = new ArrayList<Integer>();
     private Color color;
-    private String cstring;
-    public face(Color c, String cstring)
+    public face(Color c)
     {
         color = c;
-        this.cstring = cstring;
     }
     public void addPointKey(int j)
     {
@@ -18,10 +15,6 @@ public class face extends Polygon{
     public Color getColor()
     {
         return color;
-    }
-    public String getColorString()
-    {
-        return cstring;
     }
     public void setIndex(Color c)
     {
@@ -34,14 +27,9 @@ public class face extends Polygon{
             addPoint((int)viewport.pointPositions[ptKeys.get(i)][0], (int)viewport.pointPositions[ptKeys.get(i)][1]);
         }
     }
-    public String getKeys()
+    public ArrayList<Integer> getKeys()
     {
-        String keystring = "";
-        for(int i = 0; i<ptKeys.size(); i++)
-        {
-            keystring += ""+ptKeys.get(i);
-        }
-        return keystring;
+        return ptKeys;
     }
     public double getAvgPointPos()
     {
