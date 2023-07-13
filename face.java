@@ -3,22 +3,18 @@ import java.util.*;
 
 public class face extends Polygon{
     private ArrayList<Integer> ptKeys = new ArrayList<Integer>();
-    private Color color;
-    public face(Color c)
+    private int index;
+    public face(int i)
     {
-        color = c;
+        index = i;
     }
     public void addPointKey(int j)
     {
         ptKeys.add(j);
     }
-    public Color getColor()
+    public int getIndex()
     {
-        return color;
-    }
-    public void setIndex(Color c)
-    {
-        color = c;
+        return index;
     }
     public void update()
     {
